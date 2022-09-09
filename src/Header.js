@@ -2,11 +2,13 @@ import styles from './Header.module.css';
 
 import Space from './components/Space';
 import Button from './components/Button';
+import Tabs from './components/Tabs';
 
 
 export default function Header() {
   return (
     <div className={styles.header}>
+      <div className={styles.buttonContainer}>
       <Button
         style={{
           fontSize: "14px",
@@ -36,6 +38,8 @@ export default function Header() {
       >
         Star
       </Button>
+      </div>
+      <Tabs title="title" number={5}/>
     </div>
   )
 }
