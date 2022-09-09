@@ -1,39 +1,12 @@
 import styles from "./App.module.css"
+import Button from "./components/Button"
+import Header from "./Header"
 
 function App() {
   return (
     <>
       <div className={styles.nav}>Nav</div>
-      <div className={styles.header}>
-        <Button
-          style={{
-            fontSize: "14px",
-            backgroundColor: "transparent",
-            color: "black",
-          }}
-        >
-          Watch
-        </Button>
-        <Space />
-        <Button
-          style={{
-            fontSize: "14px",
-            backgroundColor: "transparent",
-            color: "black",
-          }}
-        >
-          Fork <div className={styles.circle}>5</div>
-        </Button>
-        <Button
-          style={{
-            fontSize: "14px",
-            backgroundColor: "transparent",
-            color: "black",
-          }}
-        >
-          Star
-        </Button>
-      </div>
+      <Header /> 
       <div className={styles.listContainer}>
         <Button
           style={{ fontSize: "14px", backgroundColor: "green", color: "white" }}
@@ -46,14 +19,4 @@ function App() {
   )
 }
 
-function Button({ style, children }) {
-  return (
-    <button className={styles.button} style={style}>
-      {children}
-    </button>
-  )
-}
-function Space() {
-  return <div className={styles.space}></div>
-}
 export default App
