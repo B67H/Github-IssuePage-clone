@@ -4,6 +4,7 @@ import { useState } from "react"
 import ListItem from "./components/ListItem"
 import ListItemLayout from "./components/ListItemLayout"
 import clsx from "clsx"
+import Modal from "./components/Modal"
 
 export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:pr is:open")
@@ -42,15 +43,29 @@ export default function ListContainer() {
 }
 
 function ListFilter() {
+  const [showModal, setShowModal] = useState(false)
   return (
-    <div className={styles.filterLists}>
-      <ListFilterItem>Author</ListFilterItem>
-      <ListFilterItem>Label</ListFilterItem>
-      <ListFilterItem>Projects</ListFilterItem>
-      <ListFilterItem>Milestones</ListFilterItem>
-      <ListFilterItem>Assignee</ListFilterItem>
-      <ListFilterItem>Sort</ListFilterItem>
-    </div>
+    <>
+      <div className={styles.filterLists}>
+        <ListFilterItem onClick={() => setShowModal(true)}>
+          Author
+        </ListFilterItem>
+        <ListFilterItem onClick={() => setShowModal(true)}>
+          Label
+        </ListFilterItem>
+        <ListFilterItem onClick={() => setShowModal(true)}>
+          Projects
+        </ListFilterItem>
+        <ListFilterItem onClick={() => setShowModal(true)}>
+          Milestones
+        </ListFilterItem>
+        <ListFilterItem onClick={() => setShowModal(true)}>
+          Assignee
+        </ListFilterItem>
+        <ListFilterItem onClick={() => setShowModal(true)}>Sort</ListFilterItem>
+      </div>
+      <Modal opened={showModal} onClose={() => setShowModal(false)} />
+    </>
   )
 }
 
