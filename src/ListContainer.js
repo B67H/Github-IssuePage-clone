@@ -9,6 +9,7 @@ import Modal from "./components/Modal"
 export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:pr is:open")
   const [checkedList, setCheckedList] = useState([])
+  const [list, setList] = useState()
 
   return (
     <div className={styles.listContainer}>
@@ -27,22 +28,29 @@ export default function ListContainer() {
       <OpenClosedFilters />
 
       <ListItemLayout className={styles.listFilter}>
-        <ListFilter />
+        <ListFilter
+          onChangeFilter={(filteredData) => {
+            // 필터링된 요소에 맞게 데이터를 불러오기
+          }}
+        />
       </ListItemLayout>
       <div className={styles.container}>
-        <ListItem
-          checked={checkedList.filter((item) => item.id === "0")[0]}
-          onChangeCheckBox={() =>
-            setCheckedList((checkedList) => [...checkedList, "0"])
-          }
-          badges={[{ color: "red", title: "Bug" }]}
-        />
+        {list.map((listItem, idx) => (
+          <ListItem
+            key={idx}
+            checked={checkedList.filter((item) => item.id === "0")[0]}
+            onChangeCheckBox={() =>
+              setCheckedList((checkedList) => [...checkedList, "0"])
+            }
+            badges={[{ color: "red", title: "Bug" }]}
+          />
+        ))}
       </div>
     </div>
   )
 }
 
-function ListFilter() {
+function ListFilter({ onChangeFilter }) {
   const [showModal, setShowModal] = useState(false)
   return (
     <>
@@ -68,6 +76,11 @@ function ListFilter() {
         opened={showModal}
         onClose={() => setShowModal(false)}
         placeholder="Filter labels"
+        searchDataList={["Bug", "Labels", "Apple"]}
+        // onClickCell{() => {
+        //   // 클릭된 정보를 통해 리스트 필터링
+        //   onChangeFilter()
+        // }}
       />
     </>
   )
