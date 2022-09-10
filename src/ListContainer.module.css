@@ -7,6 +7,7 @@
 .topSection {
   display: flex;
   flex-direction: space-between;
+  margin-bottom: 20px;
 }
 
 .input {
@@ -38,4 +39,10 @@
   line-height: 21px;
 }
 
-
+.textFilter {
+  margin-right: 8px;
+  cursor: pointer;
+}
+.selected {
+  font-weight: 800;
+}
