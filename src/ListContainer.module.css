@@ -17,5 +17,25 @@
   color: #57606a;
   width: 60%;
   margin-right: auto;
-  box-shadow: none ;
+  box-shadow: none;
 }
+
+.listFilter {
+  margin-top: 20px;
+  background: rgb(246, 248, 250);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  padding: 16px;
+}
+
+.filterLists {
+  display: flex;
+  align-items: center;
+}
+
+.filterLists > span {
+  padding: 0 16px;
+  line-height: 21px;
+}
+
+
