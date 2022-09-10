@@ -64,7 +64,11 @@ function ListFilter() {
         </ListFilterItem>
         <ListFilterItem onClick={() => setShowModal(true)}>Sort</ListFilterItem>
       </div>
-      <Modal opened={showModal} onClose={() => setShowModal(false)} />
+      <Modal
+        opened={showModal}
+        onClose={() => setShowModal(false)}
+        placeholder="Filter labels"
+      />
     </>
   )
 }
