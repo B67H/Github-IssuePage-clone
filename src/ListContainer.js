@@ -31,7 +31,7 @@ export default function ListContainer() {
         </div>
       </ListItemLayout>
       <div className={styles.container}>
-        <ListItem />
+        <ListItem badges={[{ color: "red", title: "Bug" }]} />
       </div>
     </div>
   )
