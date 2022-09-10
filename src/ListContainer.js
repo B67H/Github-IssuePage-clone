@@ -6,6 +6,8 @@ import ListItemLayout from "./components/ListItemLayout"
 
 export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:pr is:open")
+  const [checkedList, setCheckedList] = useState([])
+
   return (
     <div className={styles.listContainer}>
       <div className={styles.topSection}>
@@ -31,6 +33,15 @@ export default function ListContainer() {
         </div>
       </ListItemLayout>
       <div className={styles.container}>
+        <ListItem
+          checked={checkedList.filter((item) => item.id === "0")[0]}
+          onChangeCheckBox={() =>
+            setCheckedList((checkedList) => [...checkedList, "0"])
+          }
+          badges={[{ color: "red", title: "Bug" }]}
+        />
+        <ListItem badges={[{ color: "red", title: "Bug" }]} />
+        <ListItem badges={[{ color: "red", title: "Bug" }]} />
         <ListItem badges={[{ color: "red", title: "Bug" }]} />
       </div>
     </div>
