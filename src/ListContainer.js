@@ -9,7 +9,7 @@ import Modal from "./components/Modal"
 export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:pr is:open")
   const [checkedList, setCheckedList] = useState([])
-  const [list, setList] = useState()
+  const [list, setList] = useState([])
 
   return (
     <div className={styles.listContainer}>
@@ -26,7 +26,6 @@ export default function ListContainer() {
         </Button>
       </div>
       <OpenClosedFilters />
-
       <ListItemLayout className={styles.listFilter}>
         <ListFilter
           onChangeFilter={(filteredData) => {
@@ -51,46 +50,41 @@ export default function ListContainer() {
 }
 
 function ListFilter({ onChangeFilter }) {
-  const [showModal, setShowModal] = useState(false)
   return (
     <>
       <div className={styles.filterLists}>
-        <ListFilterItem onClick={() => setShowModal(true)}>
-          Author
-        </ListFilterItem>
-        <ListFilterItem onClick={() => setShowModal(true)}>
-          Label
-        </ListFilterItem>
-        <ListFilterItem onClick={() => setShowModal(true)}>
-          Projects
-        </ListFilterItem>
-        <ListFilterItem onClick={() => setShowModal(true)}>
-          Milestones
-        </ListFilterItem>
-        <ListFilterItem onClick={() => setShowModal(true)}>
-          Assignee
-        </ListFilterItem>
-        <ListFilterItem onClick={() => setShowModal(true)}>Sort</ListFilterItem>
+        <ListFilterItem>Author</ListFilterItem>
+        <ListFilterItem>Label</ListFilterItem>
+        <ListFilterItem>Projects</ListFilterItem>
+        <ListFilterItem>Milestones</ListFilterItem>
+        <ListFilterItem>Assignee</ListFilterItem>
+        <ListFilterItem>Sort</ListFilterItem>
       </div>
-      <Modal
-        opened={showModal}
-        onClose={() => setShowModal(false)}
-        placeholder="Filter labels"
-        searchDataList={["Bug", "Labels", "Apple"]}
-        // onClickCell{() => {
-        //   // 클릭된 정보를 통해 리스트 필터링
-        //   onChangeFilter()
-        // }}
-      />
     </>
   )
 }
 
-function ListFilterItem({ onClick, children }) {
+function ListFilterItem({ onClick, children, onChangeFilter }) {
+  const [showModal, setShowModal] = useState(false)
+
   return (
-    <span role="button" onClick={onClick}>
-      {children} ▾
-    </span>
+    <div className={styles.filterItem}>
+      <span role="button" onClick={() => setShowModal(true)}>
+        {children} ▾
+      </span>
+      <div className={styles.modalContainer}>
+        <Modal
+          opened={showModal}
+          onClose={() => setShowModal(false)}
+          placeholder="Filter labels"
+          searchDataList={["Bug", "Labels", "Apple"]}
+          // onClickCell{() => {
+          //   // 클릭된 정보를 통해 리스트 필터링
+          //   onChangeFilter()
+          // }}
+        />
+      </div>
+    </div>
   )
 }
 
