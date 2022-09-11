@@ -1,10 +1,11 @@
 import styles from "./ListContainer.module.css"
-import Button from "./components/Button"
+import clsx from "clsx"
 import { useState } from "react"
+
+import Button from "./components/Button"
 import ListItem from "./components/ListItem"
 import ListItemLayout from "./components/ListItemLayout"
-import clsx from "clsx"
-import Modal from "./components/Modal"
+import ListFilter from "./components/Modal"
 import Pagination from "./components/Pagination"
 
 export default function ListContainer() {
@@ -61,45 +62,6 @@ export default function ListContainer() {
         />
       </div>
     </>
-  )
-}
-
-function ListFilter({ onChangeFilter }) {
-  return (
-    <>
-      <div className={styles.filterLists}>
-        <ListFilterItem>Author</ListFilterItem>
-        <ListFilterItem>Label</ListFilterItem>
-        <ListFilterItem>Projects</ListFilterItem>
-        <ListFilterItem>Milestones</ListFilterItem>
-        <ListFilterItem>Assignee</ListFilterItem>
-        <ListFilterItem>Sort</ListFilterItem>
-      </div>
-    </>
-  )
-}
-
-function ListFilterItem({ onClick, children, onChangeFilter }) {
-  const [showModal, setShowModal] = useState(false)
-
-  return (
-    <div className={styles.filterItem}>
-      <span role="button" onClick={() => setShowModal(true)}>
-        {children} ▾
-      </span>
-      <div className={styles.modalContainer}>
-        <Modal
-          opened={showModal}
-          onClose={() => setShowModal(false)}
-          placeholder="Filter labels"
-          searchDataList={["Bug", "Labels", "Apple"]}
-          // onClickCell{() => {
-          //   // 클릭된 정보를 통해 리스트 필터링
-          //   onChangeFilter()
-          // }}
-        />
-      </div>
-    </div>
   )
 }
 
