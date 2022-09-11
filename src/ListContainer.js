@@ -10,23 +10,27 @@ import ListItemLayout from "./components/ListItemLayout"
 import ListFilter from "./components/ListFilter"
 import Pagination from "./components/Pagination"
 
+const GITHUB_API = "https://api.github.com"
+
 export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:pr is:open")
   const [checked, setChecked] = useState(false)
   const [list, setList] = useState([])
   const [page, setPage] = useState(1)
 
-  async function getData() {
+  async function getData(pageParam) {
     const { data } = await axios.get(
-      `https://api.github.com/repos/facebook/react/issues`,
+      `${GITHUB_API}/repos/facebook/react/issues`,
+      { params: { pageParam } },
     )
     setList(data)
   }
 
   useEffect(() => {
-    getData()
-  }, [])
+    getData(page)
+  }, [page])
 
+  console.log({list})
   return (
     <>
       <div className={styles.listContainer}>
