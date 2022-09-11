@@ -2,7 +2,7 @@ import styles from "./Tabs.module.css"
 import cx from "clsx"
 import { useState } from "react"
 
-const TabList = ["Code", "Issues", "Pull Request"]
+const TabList = ["Code", "Issues", "Pull Request", "Actions" , "Projects" , "Security"]
 
 export default function Tabs() {
   const [selectedTabIdx, setSelectedTabIdx] = useState(0)

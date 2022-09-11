@@ -31,10 +31,10 @@ function ListFilterItem({ onClick, children, onChangeFilter }) {
           onClose={() => setShowModal(false)}
           placeholder="Filter labels"
           searchDataList={["Bug", "Labels", "Apple"]}
-          // onClickCell{() => {
-          //   // 클릭된 정보를 통해 리스트 필터링
-          //   onChangeFilter()
-          // }}
+          onClickCell={() => {
+            // 클릭된 정보를 통해 리스트 필터링
+            onChangeFilter()
+          }}
         />
       </div>
     </div>

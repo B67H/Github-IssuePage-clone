@@ -1,18 +1,31 @@
 import styles from "./ListContainer.module.css"
 import clsx from "clsx"
-import { useState } from "react"
+
+import axios from "axios"
+import { useState, useEffect } from "react"
 
 import Button from "./components/Button"
 import ListItem from "./components/ListItem"
 import ListItemLayout from "./components/ListItemLayout"
-import ListFilter from "./components/Modal"
+import ListFilter from "./components/ListFilter"
 import Pagination from "./components/Pagination"
 
 export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:pr is:open")
-  const [checkedList, setCheckedList] = useState([])
+  const [checked, setChecked] = useState(false)
   const [list, setList] = useState([])
   const [page, setPage] = useState(1)
+
+  async function getData() {
+    const { data } = await axios.get(
+      `https://api.github.com/repos/facebook/react/issues`,
+    )
+    setList(data)
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
 
   return (
     <>
@@ -42,14 +55,12 @@ export default function ListContainer() {
           />
         </ListItemLayout>
         <div className={styles.container}>
-          {list.map((listItem, idx) => (
+          {list.map((item) => (
             <ListItem
-              key={idx}
-              checked={checkedList.filter((item) => item.id === "0")[0]}
-              onChangeCheckBox={() =>
-                setCheckedList((checkedList) => [...checkedList, "0"])
-              }
-              badges={[{ color: "red", title: "Bug" }]}
+              data={item}
+              key={item.id}
+              checked={checked}
+              onChangeCheckBox={() => setChecked((checked) => !checked)}
             />
           ))}
         </div>
@@ -67,10 +78,6 @@ export default function ListContainer() {
 
 function OpenClosedFilters({ data }) {
   const [isOpenMode, setIsOpenMode] = useState(true)
-
-  // const data = getData()
-  // const openedData = data.filter((d) => d.state === "open")
-  // const closedData = data.filter((d) => d.state === "close")
 
   const openModeDataSize = 1
   const closeModeDataSize = 2
