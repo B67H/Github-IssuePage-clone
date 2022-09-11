@@ -28,15 +28,6 @@
   padding: 16px;
 }
 
-.textFilter {
-  margin-right: 8px;
-  cursor: pointer;
-}
-
-.selected {
-  font-weight: 800;
-}
-
 .paginationContainer {
   display: flex;
   justify-content: center;
