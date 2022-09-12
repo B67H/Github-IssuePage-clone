@@ -15,8 +15,23 @@ export default function Modal({
   const [filteredData, setFilteredData] = useState(searchDataList)
 
   useEffect(() => {
-    setFilteredData(searchDataList.filter((item) => item === searchvalue))
+    setFilteredData(searchDataList)
+  }, [searchDataList])
+
+  useEffect(() => {
+    if (searchvalue === "") {
+      setFilteredData(searchDataList)
+    } else {
+      const filteredSearchList = searchDataList.filter((item) =>
+        item.name.toLowerCase().includes(searchvalue.toLowerCase()),
+      )
+      setFilteredData(filteredSearchList)
+    }
   }, [searchDataList, searchvalue])
+
+  // useEffect(() => {
+  //   setFilteredData(searchDataList.filter((item) => item === searchvalue))
+  // }, [searchDataList, searchvalue])
 
   return (
     <div className={clsx(styles.modal, { [styles.opened]: opened })}>
@@ -31,11 +46,21 @@ export default function Modal({
           onChange={(e) => setSearchValue(e.target.value)}
         />
       </div>
-      {filteredData.map((data) => (
-        <div key={data} onClick={onClickCell} role="button">
-          {data}
-        </div>
-      ))}
+      <div className={styles.list}>
+        {filteredData.map((data) => (
+          <div
+            key={data.name}
+            onClick={() => {
+              const isLabel = title.toLowerCase() === "label"
+              const paramKey = isLabel ? "labels" : title.toLowerCase()
+              onClickCell({ [paramKey]: data.name })
+            }}
+            className={styles.item}
+          >
+            {data.name}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
