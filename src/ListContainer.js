@@ -16,11 +16,11 @@ export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:pr is:open")
   const [checked, setChecked] = useState(false)
   const [list, setList] = useState([])
-  const [params, setParams] = useState()
+  // const [params, setParams] = useState()
 
   const [searchParams, setSearchParams] = useSearchParams()
-  const page = parseInt(searchParams.get("page"), 10)
-  const mode = searchParams.get("mode")
+  const page = parseInt(searchParams.get("page") ?? '1', 10) // pagination 기본값 1로 설정
+  const state = searchParams.get("state") // searchParams의 key 값과 일치시켜줌
 
   async function getData(params) {
     const { data } = await axios.get(
@@ -31,8 +31,8 @@ export default function ListContainer() {
   }
 
   useEffect(() => {
-    getData({ page, state: mode, ...params })
-  }, [page, mode, params])
+    getData(searchParams)
+  }, [searchParams])
 
   return (
     <>
@@ -54,14 +54,14 @@ export default function ListContainer() {
           </Button>
         </div>
         <OpenClosedFilters
-          isOpenMode={mode !== "closed"}
-          onClickMode={(mode) => setSearchParams({ mode })}
+          isOpenMode={state !== "closed"}
+          onClickMode={(state) => setSearchParams({ state })}
         />
         <ListItemLayout className={styles.listFilter}>
           <ListFilter
             onChangeFilter={(params) => {
               // 필터링된 요소에 맞게 데이터를 불러오기
-              setParams(params)
+              setSearchParams(params)
             }}
           />
         </ListItemLayout>
