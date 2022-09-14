@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <div className={styles.header}>
       <div className={styles.buttonContainer}>
-        <div className={styles.pageName}>B6H7 / &nbsp;<span> github-issue-ex</span></div>
+        <div className={styles.pageName}>B67H / &nbsp;<span> github-issue-ex</span></div>
         <div className={styles.buttons}>
           <Button
             style={{
