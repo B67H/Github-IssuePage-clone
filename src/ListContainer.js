@@ -10,19 +10,17 @@ import ListItemLayout from "./components/ListItemLayout"
 import ListFilter from "./components/ListFilter"
 import Pagination from "./components/Pagination"
 import OpenClosedFilters from "./components/OpenClosedFilters"
-import { GITHUB_API } from './api';
-
-
+import { GITHUB_API } from "./api"
 
 export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:pr is:open")
   const [checked, setChecked] = useState(false)
   const [list, setList] = useState([])
   const [params, setParams] = useState()
-  const [isOpenMode, setIsOpenMode] = useState(true)
 
   const [searchParams, setSearchParams] = useSearchParams()
-  const  page = parseInt(searchParams.get('page'),10)
+  const page = parseInt(searchParams.get("page"), 10)
+  const mode = searchParams.get("mode")
 
   async function getData(params) {
     const { data } = await axios.get(
@@ -33,8 +31,8 @@ export default function ListContainer() {
   }
 
   useEffect(() => {
-    getData({ page, state: isOpenMode ? "open" : "closed", ...params })
-  }, [page, isOpenMode, params])
+    getData({ page, state: mode, ...params })
+  }, [page, mode, params])
 
   return (
     <>
@@ -56,8 +54,8 @@ export default function ListContainer() {
           </Button>
         </div>
         <OpenClosedFilters
-          isOpenMode={isOpenMode}
-          onClickMode={setIsOpenMode}
+          isOpenMode={mode !== "closed"}
+          onClickMode={(mode) => setSearchParams({ mode })}
         />
         <ListItemLayout className={styles.listFilter}>
           <ListFilter
@@ -82,7 +80,9 @@ export default function ListContainer() {
         <Pagination
           maxPage={10}
           currentPage={page}
-          onClickPageButton={(pageNumber) => setSearchParams({page : pageNumber})}
+          onClickPageButton={(pageNumber) =>
+            setSearchParams({ page: pageNumber })
+          }
         />
       </div>
     </>
