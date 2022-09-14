@@ -2,7 +2,7 @@ import styles from "./ListContainer.module.css"
 
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { useSearchParams } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 
 import Button from "./components/Button"
 import ListItem from "./components/ListItem"
@@ -16,10 +16,9 @@ export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:pr is:open")
   const [checked, setChecked] = useState(false)
   const [list, setList] = useState([])
-  // const [params, setParams] = useState()
 
   const [searchParams, setSearchParams] = useSearchParams()
-  const page = parseInt(searchParams.get("page") ?? '1', 10) // pagination 기본값 1로 설정
+  const page = parseInt(searchParams.get("page") ?? "1", 10) // pagination 기본값 1로 설정
   const state = searchParams.get("state") // searchParams의 key 값과 일치시켜줌
 
   async function getData(params) {
@@ -43,15 +42,17 @@ export default function ListContainer() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <Button
-            style={{
-              fontSize: "14px",
-              backgroundColor: "green",
-              color: "white",
-            }}
-          >
-            New Issue
-          </Button>
+          <Link to="/new" className={styles.link}>
+            <Button
+              style={{
+                fontSize: "14px",
+                backgroundColor: "green",
+                color: "white",
+              }}
+            >
+              New Issue
+            </Button>
+          </Link>
         </div>
         <OpenClosedFilters
           isOpenMode={state !== "closed"}
