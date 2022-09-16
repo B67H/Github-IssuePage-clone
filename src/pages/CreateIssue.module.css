@@ -22,7 +22,7 @@
   padding: 8px;
 }
 
-.buttonWraaper {
+.buttonWrapper {
   display: flex;
   justify-content: flex-end;
 }

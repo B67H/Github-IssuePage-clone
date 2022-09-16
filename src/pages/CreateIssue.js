@@ -5,15 +5,30 @@ import { useRef } from "react"
 import TextField from "../components/TextField"
 import { useForm } from "../hooks"
 
+import { GITHUB_API } from "../api"
+import axios from "axios"
+
 export default function CreateIssue() {
   const inputRef = useRef()
   const textareaRef = useRef()
-  const {isSubmitting, inputValues, onChange, errors, handleSubmit} = useForm({
-    initialValues: { title: "", body: "" },
-    onSubmit: () => console.log("완료"),
-    validate,
-    refs: { title: inputRef, body: textareaRef },
-  })
+  const { isSubmitting, inputValues, onChange, errors, handleSubmit } = useForm(
+    {
+      initialValues: { title: "", body: "" },
+      onSubmit: async () =>
+        await axios.post(
+          `${GITHUB_API}/repos/b67h/nwitter/issues`,
+          inputValues,
+          {
+            headers: {
+              "Authorization": `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
+              "Content-Type": "applications/json",
+            },
+          },
+        ),
+      validate,
+      refs: { title: inputRef, body: textareaRef },
+    },
+  )
 
   return (
     <div className={styles.container}>
@@ -37,7 +52,7 @@ export default function CreateIssue() {
             onChange={onChange}
             error={errors.body}
           />
-          <div className={styles.buttonWraaper}>
+          <div className={styles.buttonWrapper}>
             <Button
               type="submit"
               style={{

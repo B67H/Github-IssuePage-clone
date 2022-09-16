@@ -17,14 +17,14 @@ export function useForm({
     setInputValues({ ...inputValues, [name]: value })
   }
 
-  function handleSubmit(e) {
+
+  async function handleSubmit(e) {
     e.preventDefault()
 
     setIsSubmitting(true)
     const validateResult = validate(inputValues)
     setErrors(validateResult)
 
-    // const refs = { title: inputRef, body: textareaRef }
     const errorKeys = Object.keys(validateResult)
 
     if (errorKeys.length !== 0) {
@@ -37,7 +37,7 @@ export function useForm({
     }
 
     if (errorKeys.length === 0) {
-      onSubmit()
+      await onSubmit()
       return
     }
   }

@@ -19,6 +19,8 @@ export default forwardRef(function TextField(
     ></input>
   ) : (
     <textarea
+      onChange={onChange}
+      value={value}
       name={name}
       ref={ref}
       placeholder={placeholder}
