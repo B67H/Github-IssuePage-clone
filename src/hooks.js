@@ -6,7 +6,7 @@ export function useForm({
   onSuccess,
   onErrors,
   onSubmit,
-  refs
+  refs,
 }) {
   const [inputValues, setInputValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
@@ -16,7 +16,6 @@ export function useForm({
     const { name, value } = e.target
     setInputValues({ ...inputValues, [name]: value })
   }
-
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -37,7 +36,12 @@ export function useForm({
     }
 
     if (errorKeys.length === 0) {
-      await onSubmit()
+      try {
+        const result = await onSubmit()
+        onSuccess(result)
+      } catch (e) {
+        onErrors()
+      }
       return
     }
   }

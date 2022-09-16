@@ -7,10 +7,12 @@ import { useForm } from "../hooks"
 
 import { GITHUB_API } from "../api"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 export default function CreateIssue() {
   const inputRef = useRef()
   const textareaRef = useRef()
+  const navigate = useNavigate()
   const { isSubmitting, inputValues, onChange, errors, handleSubmit } = useForm(
     {
       initialValues: { title: "", body: "" },
@@ -20,13 +22,17 @@ export default function CreateIssue() {
           inputValues,
           {
             headers: {
-              "Authorization": `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
+              Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
               "Content-Type": "applications/json",
             },
           },
         ),
       validate,
       refs: { title: inputRef, body: textareaRef },
+      onSuccess: (result) => {
+        console.log({result})
+        navigate("/", { replace: true })
+      },
     },
   )
 
