@@ -8,8 +8,12 @@ import Security from "./pages/Security"
 import Actions from "./pages/Actions"
 import Nav from "./components/Nav"
 import Header from "./Header"
+import { UserContext } from "./context/UserContext"
+import { useUser } from "./hooks"
 
 function App() {
+  
+  
   return (
     <>
       <Nav />
