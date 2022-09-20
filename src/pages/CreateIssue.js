@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import styles from "./CreateIssue.module.css"
 import Button from "../components/Button"
-import { useContext, useRef } from "react"
+import { useRef } from "react"
 import TextField from "../components/TextField"
 import { useForm, useUser } from "../hooks"
 

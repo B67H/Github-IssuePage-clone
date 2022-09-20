@@ -1,6 +1,7 @@
 import axios from "axios"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { GITHUB_API } from "./api"
+import { useQuery } from "react-query"
 
 export function useForm({
   initialValues,
@@ -57,23 +58,17 @@ export function useForm({
   }
 }
 
+async function getUserinfo() {
+  const data = await axios.get(`${GITHUB_API}/user`, {
+    headers: {
+      Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+  })
+
+  return data.data
+}
+
 export function useUser() {
-  const [user, setUser] = useState()
-
-  useEffect(() => {
-    getUserinfo()
-  }, [])
-
-  async function getUserinfo() {
-    const data = await axios.get(`${GITHUB_API}/user`, {
-      headers: {
-        Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-    })
-
-    setUser(data.data)
-  }
-
-  return user
+  return useQuery(["userInfo"], () => getUserinfo(), { staleTime: "Infinity" })
 }
